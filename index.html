@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spotify Mini Player</title>
+  <title>Spotify Web Player</title>
   <style>
     body {
       margin: 0;
@@ -43,13 +43,12 @@
       position: relative;
     }
     .embed {
-      margin-bottom: 8px;
+      height: 100%;
     }
     iframe {
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 0;
     }
     #login-overlay {
       position: absolute;
@@ -57,7 +56,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(18,18,18,0.95);
+      background: rgba(18,18,18,0.96);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -80,15 +79,15 @@
   </style>
 </head>
 <body>
-  <div id="header">🎧 Spotify Mini Player</div>
+  <div id="header">🎧 Spotify Web Player</div>
   <div id="search">
-    <input id="input" type="text" placeholder="Paste Spotify track / album / playlist URL..." />
+    <input id="input" type="text" placeholder="Paste Spotify playlist / album / track URL..." />
   </div>
   <div id="browse">
     <div class="embed">
       <iframe
         id="player"
-        src="https://open.spotify.com/embed/collection/tracks"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy">
       </iframe>
@@ -101,11 +100,10 @@
 
   <script>
     const input = document.getElementById("input");
-    const browse = document.getElementById("browse");
     const overlay = document.getElementById("login-overlay");
     const loginBtn = document.getElementById("login-btn");
+    const player = document.getElementById("player");
 
-    // check login status by trying to load a Spotify API resource (requires no token)
     async function checkLogin() {
       try {
         const res = await fetch("https://open.spotify.com/get_access_token?reason=transport&productType=web_player");
@@ -133,7 +131,7 @@
         if (!match) return alert("Please enter a valid Spotify link.");
         const type = match[1];
         const id = match[2];
-        document.getElementById("player").src = `https://open.spotify.com/embed/${type}/${id}`;
+        player.src = `https://open.spotify.com/embed/${type}/${id}`;
       }
     });
   </script>
