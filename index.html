@@ -64,18 +64,6 @@
       text-align: center;
       transition: opacity 0.3s ease;
     }
-    #login-overlay button {
-      background: #1db954;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 50px;
-      cursor: pointer;
-    }
-    #login-overlay button:hover {
-      background: #1ed760;
-    }
   </style>
 </head>
 <body>
@@ -93,15 +81,13 @@
       </iframe>
     </div>
     <div id="login-overlay" style="display:none;">
-      <p>To play full songs, please log in to your Spotify account.</p>
-      <button id="login-btn">Log in to Spotify</button>
+      <p>Log in to Spotify in your browser to enable playback.</p>
     </div>
   </div>
 
   <script>
     const input = document.getElementById("input");
     const overlay = document.getElementById("login-overlay");
-    const loginBtn = document.getElementById("login-btn");
     const player = document.getElementById("player");
 
     async function checkLogin() {
@@ -119,10 +105,6 @@
     }
 
     checkLogin();
-
-    loginBtn.addEventListener("click", () => {
-      window.open("https://open.spotify.com/login", "_blank");
-    });
 
     input.addEventListener("keydown", e => {
       if (e.key === "Enter") {
